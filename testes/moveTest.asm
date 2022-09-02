@@ -38,9 +38,9 @@ MAIN:
 	li t2,0xFF012C00	# endereco final 
 	li t3,0xd0d0d0d0	# cor vermelho|vermelho|vermelhor|vermelho
 	LOOP: 	
-		beq t1,t2,OUT		# Se for o último endereço então sai do loop
-		sw t3,0(t1)		# escreve a word na memória VGA
-		addi t1,t1,4		# soma 4 ao endereço
+		beq t1,t2,OUT		# Se for o Ãºltimo endereÃ§o entÃ£o sai do loop
+		sw t3,0(t1)		# escreve a word na memÃ³ria VGA
+		addi t1,t1,4		# soma 4 ao endereÃ§o
 		j LOOP		# volta a verificar
 OUT:
 	li s1, 160
