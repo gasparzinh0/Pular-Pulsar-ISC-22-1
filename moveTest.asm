@@ -45,12 +45,43 @@ MAIN:
 OUT:
 	li s1, 160
 	li s2, 120
-A:
 	print_player(s1,s2,0x71717171)
-	li, t1, 10
-	wait_time(t1)
+
+POOLING_LOOP:
+	li s0, MMIO_set
+	lb t1, 0(s0)
+	beqz t1, POOLING_LOOP	# ready bit == 0
+	lw a0, MMIO_add		# Dados MMIO
+	
+	syscall(11)
+	
+	li t2, 119
+	beq t2, a0, UP
+	li t2, 115
+	beq t2, a0, DOWN
+	li t2, 97
+	beq t2, a0, LEFT
+	li t2, 100
+	beq t2, a0, RIGHT
+	j POOLING_LOOP
+	exit()
+UP:
 	print_player(s1,s2,0xd0d0d0d0)
-	
-	addi s1,s1,320
-	j A
-	
+	addi s2,s2,-4
+	print_player(s1,s2,0x71717171)
+	j POOLING_LOOP
+DOWN:
+	print_player(s1,s2,0xd0d0d0d0)
+	addi s2,s2,4
+	print_player(s1,s2,0x71717171)
+	j POOLING_LOOP
+LEFT:
+	print_player(s1,s2,0xd0d0d0d0)
+	addi s1,s1,-4
+	print_player(s1,s2,0x71717171)
+	j POOLING_LOOP
+RIGHT:
+	print_player(s1,s2,0xd0d0d0d0)
+	addi s1,s1,4
+	print_player(s1,s2,0x71717171)
+	j POOLING_LOOP
