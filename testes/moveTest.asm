@@ -36,7 +36,7 @@ MAIN:
 	# Preenche a tela
 	li t1,0xFF000000	# endereco inicial da Memoria VGA - Frame 0
 	li t2,0xFF012C00	# endereco final 
-	li t3,0xd0d0d0d0	# cor vermelho|vermelho|vermelhor|vermelho
+	li t3,0x82828282	# cor vermelho|vermelho|vermelhor|vermelho
 	LOOP: 	
 		beq t1,t2,OUT		# Se for o último endereço então sai do loop
 		sw t3,0(t1)		# escreve a word na memória VGA
@@ -66,22 +66,22 @@ POOLING_LOOP:
 	j POOLING_LOOP
 	exit()
 UP:
-	print_player(s1,s2,0xd0d0d0d0)
+	print_player(s1,s2,0x82828282)
 	addi s2,s2,-4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
 DOWN:
-	print_player(s1,s2,0xd0d0d0d0)
+	print_player(s1,s2,0x82828282)
 	addi s2,s2,4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
 LEFT:
-	print_player(s1,s2,0xd0d0d0d0)
+	print_player(s1,s2,0x82828282)
 	addi s1,s1,-4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
 RIGHT:
-	print_player(s1,s2,0xd0d0d0d0)
+	print_player(s1,s2,0x82828282)
 	addi s1,s1,4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
