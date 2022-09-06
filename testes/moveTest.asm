@@ -38,13 +38,13 @@ MAIN:
 	li t2,0xFF012C00	# endereco final 
 	li t3,0x82828282	# cor vermelho|vermelho|vermelhor|vermelho
 	LOOP: 	
-		beq t1,t2,OUT		# Se for o Ãºltimo endereÃ§o entÃ£o sai do loop
-		sw t3,0(t1)		# escreve a word na memÃ³ria VGA
-		addi t1,t1,4		# soma 4 ao endereÃ§o
+		beq t1,t2,OUT		# Se for o último endereço então sai do loop
+		sw t3,0(t1)		# escreve a word na memória VGA
+		addi t1,t1,4		# soma 4 ao endereço
 		j LOOP		# volta a verificar
 OUT:
-	li s1, 160
-	li s2, 120
+	li s1, 20
+	li s2, 20
 	print_player(s1,s2,0x71717171)
 
 POOLING_LOOP:
@@ -66,22 +66,31 @@ POOLING_LOOP:
 	j POOLING_LOOP
 	exit()
 UP:
+	li t0, 20
+	ble s2, t0, COLLISION_BORDER
 	print_player(s1,s2,0x82828282)
 	addi s2,s2,-4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
 DOWN:
+	li t0, 160 
+	bge s2, t0, COLLISION_BORDER
 	print_player(s1,s2,0x82828282)
 	addi s2,s2,4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
 LEFT:
+	li t0, 20
+	ble s1, t0, COLLISION_BORDER
 	print_player(s1,s2,0x82828282)
 	addi s1,s1,-4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
 RIGHT:
+	li t0, 300
+	bge s1, t0, COLLISION_BORDER
 	print_player(s1,s2,0x82828282)
 	addi s1,s1,4
 	print_player(s1,s2,0x71717171)
 	j POOLING_LOOP
+COLLISION_BORDER: j POOLING_LOOP
