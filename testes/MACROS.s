@@ -112,3 +112,17 @@
 		j LOOP			# volta a verificar
 	OUT:
 .end_macro
+
+
+.macro NEXT_FRAME() # Avancar frame
+	li s0,0xFF200604	
+	lw t2,0(s0)	
+	xori t2,t2, 1
+	sw t2,0(s0)		
+.end_macro 
+
+.macro SETUP_REGS()
+	li s1, 20
+	li s2, 20
+	li s3, 0xFF000000
+.end_macro
